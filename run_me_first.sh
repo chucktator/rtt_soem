@@ -9,3 +9,8 @@ cp -f CMakeLists_for_soem_core.txt soem_core/CMakeLists.txt
 # patch --quiet <../patch_for_cmake_soem_core.txt
 # cd ..
 
+# sudo setcap cap_net_raw+ep ~/catkin_ws/underlay_isolated/build_isolated/ocl/install/bin/deployer-gnulinux
+# sudo setcap cap_net_raw+ep ~/catkin_ws/underlay_isolated/install_isolated/bin/deployer-gnulinux
+# TEST
+# sudo setcap cap_net_raw+ep ~/catkin_ws/devel/lib/soem/slaveinfo
+# sudo setcap cap_net_raw+ep ~/catkin_ws/underlay_isolated/install_isolated/bin/deployer

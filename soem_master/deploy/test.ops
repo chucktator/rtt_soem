@@ -1,4 +1,31 @@
-import("soem_master")
 import("soem_beckhoff_drivers")
+import("soem_master")
+import("rtt_ros")
+import("rtt_roscomm")
+import("rtt_rosnode")
+import("rtt_ros_msgs")
+
 loadComponent("Master","soem_master::SoemMasterComponent")
 Master.displayAvailableDrivers()
+
+# Default nic is eth0, set if different. e.g.
+Master.ifname = "enp1s0f1"
+
+
+# Crawls the network and identifies attached devices.  Devices are loaded
+# (if a driver exists) and given names "Slave_1***".  The *** appear to be
+# the module order (at least this is the case for a single rack)
+Master.configure()
+
+# Setting the update period (in seconds).  This determines the rate at which
+# the data is published on the ROS side (setting this value to zero turns
+# off updating
+Master.setPeriod(0.05)
+
+# This stars the Master "task" running.  It will update at the period set
+# above
+Master.start()
+
+# This command remaps OROCOS topics to ROS topics
+stream("Master.Slave_1002.values", ros.topic("/EtherCAT/Slave2/EL3064_Values"))
+#stream("Master.Slave_1002.bits", ros.topic("DI"))
